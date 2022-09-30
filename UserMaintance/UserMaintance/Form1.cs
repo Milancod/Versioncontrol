@@ -44,19 +44,21 @@ namespace UserMaintance
 
         private void button2_Click(object sender, EventArgs e)
         {
-            /*SaveFileDialog sf = new SaveFileDialog();
+            SaveFileDialog sf = new SaveFileDialog();
             if (sf.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
             if (sf.ShowDialog() == DialogResult.OK)
             {
-            */
+
                 TextWriter sw = new StreamWriter(@"C:\Users\milan\Documents\Dni");
                 sw.Write(textBox1.Text);
 
-       
 
-        }       
+
+            }
+        }
+             
     }
 }
