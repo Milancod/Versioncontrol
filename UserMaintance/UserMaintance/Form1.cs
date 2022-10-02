@@ -44,19 +44,23 @@ namespace UserMaintance
 
         private void button2_Click(object sender, EventArgs e)
         {
-            SaveFileDialog sf = new SaveFileDialog();
-            if (sf.ShowDialog() != DialogResult.OK)
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.InitialDirectory = Application.StartupPath;
+            sfd.Filter = "Comma Seperated Values (*.csv)|*.csv";
+            sfd.DefaultExt = "csv";
+            sfd.AddExtension = true;
+
+            if (sfd.ShowDialog() != DialogResult.OK) return;
+
+            using (StreamWriter sw = new StreamWriter(sfd.FileName, false, Encoding.Default))
             {
-                return;
-            }
-            if (sf.ShowDialog() == DialogResult.OK)
-            {
 
-                TextWriter sw = new StreamWriter(@"C:\Users\milan\Documents\Dni");
-                sw.Write(textBox1.Text);
+                foreach (var u in users)
+                {
 
-
-
+                    sw.Write(u.FullName);
+                    sw.WriteLine();
+                }
             }
         }
              
