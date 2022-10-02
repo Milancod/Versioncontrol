@@ -18,7 +18,7 @@ namespace UserMaintance
         public Form1()
         {
             InitializeComponent();
-            textBox1.Text = Resource1.FullName; 
+            label1.Text = Resource1.FullName; 
             button1.Text = Resource1.Add;
             button2.Text = Resource1.Fileedit; 
             listBox1.DataSource = users;
