@@ -45,11 +45,12 @@ namespace UserMaintance
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (listBox1.SelectedIndex != -1)
-            {
-                listBox1.Items.RemoveAt(listBox1.SelectedIndex);
-            }
-            
+            Guid delete = ((User)listBox1.SelectedItem).ID;
+            var d = (from u in users
+                     where u.ID == delete
+                     select u).FirstOrDefault();
+            users.Remove(d);
+
         }
     }
 }
