@@ -45,10 +45,10 @@ namespace UserMaintance
         private void button2_Click(object sender, EventArgs e)
         {
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.InitialDirectory = Application.StartupPath;
-            sfd.Filter = "Comma Seperated Values (*.csv)|*.csv";
-            sfd.DefaultExt = "csv";
-            sfd.AddExtension = true;
+            
+
+           sfd.Filter = "Text File | *.txt";
+
 
             if (sfd.ShowDialog() != DialogResult.OK) return;
 
