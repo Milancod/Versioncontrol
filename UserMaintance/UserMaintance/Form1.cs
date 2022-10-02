@@ -46,10 +46,10 @@ namespace UserMaintance
         private void button2_Click(object sender, EventArgs e)
         {
             Guid delete = ((User)listBox1.SelectedItem).ID;
-            var d = (from u in users
-                     where u.ID == delete
-                     select u).FirstOrDefault();
-            users.Remove(d);
+            var torol = (from x in users
+                     where x.ID == delete
+                     select x).FirstOrDefault();
+            users.Remove(torol);
 
         }
     }
