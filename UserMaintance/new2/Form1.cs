@@ -1,4 +1,5 @@
-﻿using System;
+﻿using new2.MnbServiceReference;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,20 +8,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace new2
 {
     public partial class Form1 : Form
     {
-       
+        BindingList<Entities.RateData> Rates = new BindingList<Entities.RateData>();
+        XmlDocument xml;
+
+
         public Form1()
         {
             InitializeComponent();
+            dataGridView1.DataSource = Rates;
+            fv();
+            alma();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private void alma()
+        {
+            var xml = new XmlDocument();
+            xml.LoadXml(result);
+
+          
+            foreach (XmlElement element in xml.DocumentElement)
+            {
+              
+                var rate = new Entities.RateData();
+                Rates.Add(rate);
+
+               
+                rate.Date = DateTime.Parse(element.GetAttribute("date"));
+
+                
+                var childElement = (XmlElement)element.ChildNodes[0];
+                rate.Currency = childElement.GetAttribute("curr");
+
+                
+                var unit = decimal.Parse(childElement.GetAttribute("unit"));
+                var value = decimal.Parse(childElement.InnerText);
+                if (unit != 0)
+                    rate.Value = value / unit;
+            }
         }
         private void fv()
         {
