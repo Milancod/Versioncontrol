@@ -24,6 +24,7 @@ namespace new2
             InitializeComponent();
             dataGridView1.DataSource = Rates;
             fv();
+            RefreshData();
            
             
         }
@@ -31,6 +32,10 @@ namespace new2
         private void Form1_Load(object sender, EventArgs e)
         {
 
+        }
+        private void RefreshData()
+        {
+           
         }
         private void alma ()
         {
