@@ -23,11 +23,11 @@ namespace new3.Entities
             //throw new NotImplementedException();
             DrawImage(e.Graphics);
         }
-        private void DrawImage(Graphics g)
+        public void DrawImage(Graphics g)
         {
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }
-        private void MoveBall()
+       public void MoveBall()
         {
             Left = -1;
         }
