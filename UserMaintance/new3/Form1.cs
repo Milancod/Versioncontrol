@@ -14,13 +14,15 @@ namespace new3
 {
     public partial class Form1 : Form
     {
-        List<Entities.Ball> _balls = new List<Entities.Ball>();
+        private List<Entities.Ball> _balls = new List<Entities.Ball>();
         private BallFactory _factory;
-        public BallFactory Factory
+
+        public  BallFactory Factory
         {
             get { return _factory; }
             set { _factory = value; }
-        }
+        } 
+
         public Form1()
         {
             InitializeComponent();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using new3.Entities.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 
 namespace new3.Entities
 {
-    internal class Ball:Label
+    public class Ball : Toy
     {
         public Ball()
         {
@@ -23,13 +24,13 @@ namespace new3.Entities
             //throw new NotImplementedException();
             DrawImage(e.Graphics);
         }
-        public void DrawImage(Graphics g)
+        protected void DrawImage(Graphics g)
         {
             g.FillEllipse(new SolidBrush(Color.Blue), 0, 0, Width, Height);
         }
        public void MoveBall()
         {
-            Left = -1;
+            Left += 1;
         }
     }
 }
