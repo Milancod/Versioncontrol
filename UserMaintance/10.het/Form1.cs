@@ -24,6 +24,7 @@ namespace _10.het
         public Form1()
         {
             InitializeComponent();
+            //button1.Visible = false;    
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
             gc.AddPlayer();
@@ -39,6 +40,10 @@ namespace _10.het
 
         private void Gc_GameOver1(object sender)
         {
+            generation++;
+            label1.Text = string.Format(
+                "{0}. generáció",
+                generation);
             var playerList = from p in gc.GetCurrentPlayers()
                              orderby p.GetFitness() descending
                              select p;
@@ -46,36 +51,33 @@ namespace _10.het
             gc.ResetCurrentLevel();
             foreach (var p in topPerformers)
             {
-                var b = p.Brain.Clone();
+                var alma = p.Brain.Clone();
                 if (generation % 3 == 0)
-                    gc.AddPlayer(b.ExpandBrain(nbrOfStepsIncrement));
+                    gc.AddPlayer(alma.ExpandBrain(nbrOfStepsIncrement));
                 else
-                    gc.AddPlayer(b);
+                    gc.AddPlayer(alma);
 
                 if (generation % 3 == 0)
-                    gc.AddPlayer(b.Mutate().ExpandBrain(nbrOfStepsIncrement));
+                    gc.AddPlayer(alma.Mutate().ExpandBrain(nbrOfStepsIncrement));
                 else
-                    gc.AddPlayer(b.Mutate());
+                    gc.AddPlayer(alma.Mutate());
             }
             gc.Start();
-            var winners = from p in topPerformers
+            var gyoztes = from p in topPerformers
                           where p.IsWinner
                           select p;
-            if (winners.Count() > 0)
+            if (gyoztes.Count() > 0)
             {
-                winnerBrain = winners.FirstOrDefault().Brain.Clone();
-                gc.GameOver -= Gc_GameOver;
+                winnerBrain = gyoztes.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver1;
+                button1.Visible = true;
                 return;
+               
             }
+            
         }
 
-        private void Gc_GameOver(object sender)
-        {
-            generation++;
-            label1.Text = string.Format(
-                "{0}. generáció",
-                generation);
-        }
+        
 
         private void Form1_Load(object sender, EventArgs e)
         {
