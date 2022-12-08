@@ -28,8 +28,9 @@ namespace _10.het
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
             gc.AddPlayer();
+            gc.GameOver += Gc_GameOver;
             gc.Start(true);
-            gc.GameOver += Gc_GameOver1;
+            
 
             for (int i = 0; i < populationSize; i++)
             {
@@ -38,7 +39,7 @@ namespace _10.het
             gc.Start();
         }
 
-        private void Gc_GameOver1(object sender)
+        private void Gc_GameOver(object sender)
         {
             generation++;
             label1.Text = string.Format(
@@ -48,6 +49,17 @@ namespace _10.het
                              orderby p.GetFitness() descending
                              select p;
             var topPerformers = playerList.Take(populationSize / 2).ToList();
+            var gyoztes = from p in topPerformers
+                          where !p.IsWinner
+                          select p;
+            if (gyoztes.Count() > 0)
+            {
+                winnerBrain = gyoztes.FirstOrDefault().Brain.Clone();
+                gc.GameOver -= Gc_GameOver;
+
+                return;
+
+            }
             gc.ResetCurrentLevel();
             foreach (var p in topPerformers)
             {
@@ -63,19 +75,13 @@ namespace _10.het
                     gc.AddPlayer(alma.Mutate());
             }
             gc.Start();
-            var gyoztes = from p in topPerformers
-                          where p.IsWinner
-                          select p;
-            if (gyoztes.Count() > 0)
-            {
-                winnerBrain = gyoztes.FirstOrDefault().Brain.Clone();
-                gc.GameOver -= Gc_GameOver1;
-                button1.Visible = true;
-                return;
-               
-            }
+            
+            
+            
             
         }
+
+       
 
         
 
