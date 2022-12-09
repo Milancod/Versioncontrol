@@ -14,29 +14,30 @@ namespace _10.het
     public partial class Form1 : Form
     {
         GameController gc = new GameController();
-        Brain winnerBrain = null;
-
         GameArea ga;
+
         int populationSize = 100;
         int nbrOfSteps = 10;
         int nbrOfStepsIncrement = 10;
         int generation = 1;
+        Brain winnerBrain = null;
+
+        
+        
         public Form1()
         {
             InitializeComponent();
-            //button1.Visible = false;    
+               
             ga = gc.ActivateDisplay();
             this.Controls.Add(ga);
-            gc.AddPlayer();
+
             gc.GameOver += Gc_GameOver;
-            gc.Start(true);
-            
 
             for (int i = 0; i < populationSize; i++)
             {
                 gc.AddPlayer(nbrOfSteps);
             }
-            gc.Start();
+            gc.Start(true);
         }
 
         private void Gc_GameOver(object sender)
@@ -92,11 +93,7 @@ namespace _10.het
 
         private void button1_Click(object sender, EventArgs e)
         {
-            gc.ResetCurrentLevel();
-            gc.AddPlayer(winnerBrain.Clone());
-            gc.AddPlayer();
-            ga.Focus();
-            gc.Start(true);
+           
         }
     }
 }
